@@ -17,7 +17,7 @@ class ObjectDetection:
         return model
 
     def predict(self, frame):
-        res = self.model(frame, conf=float(60/100))
+        res = self.model(frame, conf=float(30/100))
         return res
 
     def plot_boxes(self, res):
@@ -70,10 +70,11 @@ st.set_page_config(
 st.title(":green[BOX DETECTION WITH AI 🤖]")
 st.write("---")
 img_list = []
-options = st.sidebar.selectbox("Choose which data would be use", ("Sample data", "Custom data from device", "Custom data from camera"))
+options = st.sidebar.selectbox("Choose which data would be use", ("Sample data", "Custom data"))
 if options == "Sample data":
     img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
-if options == "Custom data from device":
+
+elif options == "Custom data from device":
     img_list = st.sidebar.file_uploader(":blue[UPLOAD YOUR IMAGES]", type=["png", "jpg"], accept_multiple_files=True)
 
 if len(img_list) == 0:
