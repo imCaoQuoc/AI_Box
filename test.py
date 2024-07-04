@@ -2,7 +2,7 @@ from ultralytics import YOLO
 import pandas as pd
 import streamlit as st
 from PIL import Image
-# import cv2
+import cv2
 import time
 
 model_path = 'best200.pt'
@@ -44,7 +44,7 @@ class ObjectDetection:
                     image = Image.open(s)
                     res = self.predict(image)
                     res_plotted, xyxys, conf, class_id = self.plot_boxes(res)
-                    # res_plotted = cv2.resize(res_plotted, (360,640))
+                    res_plotted = cv2.resize(res_plotted, (360,640))
                     st.text(f"Image: {s.name}")
                     st.text("Location: Not identify")
                     # st.write(xyxys)
