@@ -5,7 +5,7 @@ from PIL import Image
 import cv2
 import time
 
-model_path = 'best30v9c.pt'
+model_path = 'best.onnx'
 
 class ObjectDetection:
     def __init__(self):
@@ -16,7 +16,7 @@ class ObjectDetection:
         return model
 
     def predict(self, frame):
-        res = self.model(frame, conf=float(70/100))
+        res = self.model(frame, conf=float(60/100))
         return res
 
     def plot_boxes(self, res):
