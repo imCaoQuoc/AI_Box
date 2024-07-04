@@ -75,7 +75,7 @@ if options == "Sample data":
     img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
 
 elif options == "Custom data":
-    img_list = st.sidebar.file_uploader(":blue[UPLOAD YOUR IMAGES]", type=["png", "jpg"], accept_multiple_files=True)
+    img_list = st.sidebar.file_uploader(":blue[Upload your images]", type=["png", "jpg"], accept_multiple_files=True)
 
 if len(img_list) == 0:
     st.sidebar.warning("AI is not ready for detecting, please upload at least one image", icon="⚠️")
