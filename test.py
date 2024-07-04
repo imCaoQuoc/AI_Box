@@ -5,7 +5,7 @@ from PIL import Image
 import cv2
 import time
 
-model_path = 'best.pt'
+model_path = 'best200.pt'
 
 class ObjectDetection:
     def __init__(self):
