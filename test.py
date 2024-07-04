@@ -74,7 +74,7 @@ options = st.sidebar.selectbox("Choose which data would be use", ("Sample data",
 if options == "Sample data":
     img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
 
-elif options == "Custom data from device":
+elif options == "Custom data":
     img_list = st.sidebar.file_uploader(":blue[UPLOAD YOUR IMAGES]", type=["png", "jpg"], accept_multiple_files=True)
 
 if len(img_list) == 0:
