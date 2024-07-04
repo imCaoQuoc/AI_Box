@@ -4,6 +4,7 @@ import streamlit as st
 from PIL import Image
 import cv2
 import time
+import os
 
 model_path = 'best.onnx'
 
@@ -45,7 +46,6 @@ class ObjectDetection:
                     res = self.predict(image)
                     res_plotted, xyxys, conf, class_id = self.plot_boxes(res)
                     res_plotted = cv2.resize(res_plotted, (360,640))
-                    st.text(f"Image: {s.name}")
                     st.text("Location: Not identify")
                     # st.write(xyxys)
                     # st.write(conf)
@@ -69,7 +69,13 @@ st.set_page_config(
 )
 st.title(":green[BOX DETECTION WITH AI 🤖]")
 st.write("---")
-img_list = st.sidebar.file_uploader(":blue[UPLOAD YOUR IMAGES]", type=["png", "jpg"], accept_multiple_files=True)
+img_list = []
+options = st.sidebar.selectbox("Choose which data would be use", ("Sample data", "Custom data from device", "Custom data from camera"))
+if options == "Sample data":
+    img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
+if options == "Custom data from device":
+    img_list = st.sidebar.file_uploader(":blue[UPLOAD YOUR IMAGES]", type=["png", "jpg"], accept_multiple_files=True)
+
 if len(img_list) == 0:
     st.sidebar.warning("AI is not ready for detecting, please upload at least one image", icon="⚠️")
 else:
