@@ -5,7 +5,7 @@ import streamlit as st
 from PIL import Image
 import cv2
 
-model_path = 'best.onnx'
+model_path = 'best30v9c.pt'
 
 class ObjectDetection:
     def __init__(self):
