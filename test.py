@@ -90,10 +90,10 @@ img_list = []
 img_name = []
 options = st.sidebar.selectbox("Choose which data would be use", ("サンプルデータを使う", "箱の画像（複）を指定する"))
 
-if options == "Sample data":
+if options == "サンプルデータを使う":
     img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
     img_name = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
-elif options == "Custom data":
+elif options == "箱の画像（複）を指定する":
     img_list = st.sidebar.file_uploader("Upload your images", type=["png", "jpg"], accept_multiple_files=True)
     img_name = [file.name for file in img_list]
 
