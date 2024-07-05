@@ -4,8 +4,6 @@ import numpy as np
 import streamlit as st
 from PIL import Image
 import cv2
-import time
-import os
 
 model_path = 'best.onnx'
 
