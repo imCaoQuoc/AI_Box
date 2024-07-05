@@ -16,7 +16,7 @@ class ObjectDetection:
         return model
 
     def predict(self, frame):
-        res = self.model(frame, conf=float(30/100))
+        res = self.model(frame, conf=float(90/100))
         return res
 
     def plot_boxes(self, res):
