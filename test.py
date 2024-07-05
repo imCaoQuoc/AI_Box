@@ -34,7 +34,7 @@ class ObjectDetection:
         start = st.sidebar.button("画像から箱判定開始する")
         if start:
             columns = st.columns(2)
-            dataframe = {'image_name': [], 'box_name': [], "confidence": [], "description": []}
+            dataframe = {'画像ファイル': [], '判定結果の箱': [], "判定の確率": [], "備考": []}
             idx = 0
 
             for s in range(len(source)):
@@ -45,39 +45,39 @@ class ObjectDetection:
                 res_plotted = cv2.resize(res_plotted, (360,640))
 
                 if len(class_id[0]) == 0:
-                    dataframe['image_name'].append(source_name[s])
-                    dataframe["box_name"].append(" ")
-                    dataframe["confidence"].append(" ")
-                    dataframe["description"].append("Sorry, I cannot detect any boxes")
+                    dataframe['画像ファイル'].append(source_name[s])
+                    dataframe["判定結果の箱"].append(" ")
+                    dataframe["判定の確率"].append(" ")
+                    dataframe["備考"].append(" 判定不可")
                 else:
                     append_value_to_df(class_id, conf, dataframe)
                     for _ in range(len(class_id[0])):
-                        dataframe["image_name"].append(source_name[s])
+                        dataframe["画像ファイル"].append(source_name[s])
 
                 with col:
                     st.write(source_name[s])
                     st.image(res_plotted)
                 idx += 1
             data = pd.DataFrame(dataframe)
-            sorted_data = data.sort_values(by="confidence", ascending=False).reset_index(drop=True)
+            sorted_data = data.sort_values(by="判定の確率", ascending=False).reset_index(drop=True)
             st.table(sorted_data)
 
 def append_value_to_df(class_id, confidence, df):
     for i in range(len(class_id[0])):
         if class_id[0][i] == 0:
-            df["box_name"].append("box_1")
+            df["判定結果の箱"].append("box_1")
         elif class_id[0][i] == 1:
-            df["box_name"].append("box_2")
+            df["判定結果の箱"].append("box_2")
         elif class_id[0][i] == 2:
-            df["box_name"].append("box_4")
+            df["判定結果の箱"].append("box_4")
         elif class_id[0][i] == 3:
-            df["box_name"].append("box_5")
+            df["判定結果の箱"].append("box_5")
         elif class_id[0][i] == 4:
-            df["box_name"].append("box_7")
+            df["判定結果の箱"].append("box_7")
         elif class_id[0][i] == 5:
-            df["box_name"].append("box_8")
-        df["confidence"].append(f"{round((confidence[0][i] * 100), 2)} %")
-        df["description"].append("Detected")
+            df["判定結果の箱"].append("box_8")
+        df["判定の確率"].append(f"{round((confidence[0][i] * 100), 2)} %")
+        df["備考"].append("判定可能")
 
 st.set_page_config(
     page_title="demo",
