@@ -88,7 +88,7 @@ st.title(":green[箱をAIで判定する 🤖]")
 st.write("---")
 img_list = []
 img_name = []
-options = st.sidebar.selectbox("Choose which data would be use", ("サンプルデータを使う", "箱の画像（複）を指定する"))
+options = st.sidebar.selectbox("使う画像の設定", ("サンプルデータを使う", "箱の画像（複）を指定する"))
 
 if options == "サンプルデータを使う":
     img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
