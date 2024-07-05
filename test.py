@@ -82,7 +82,7 @@ def append_value_to_df(class_id, confidence, df):
 st.set_page_config(
     page_title="demo",
     page_icon="🤖", 
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 st.title(":green[箱をAIで判定する 🤖]")
 st.write("---")
