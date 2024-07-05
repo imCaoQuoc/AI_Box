@@ -98,8 +98,8 @@ elif options == "箱の画像（複）を指定する":
     img_name = [file.name for file in img_list]
 
 if len(img_list) == 0:
-    st.sidebar.warning("AI is not ready for detecting, please upload at least one image", icon="⚠️")
+    st.sidebar.warning("判定する画像を1枚以上指定してください", icon="⚠️")
 else:
-    st.sidebar.success("AI is ready for detecting", icon="✅")
+    st.sidebar.success("判定開始可能になりました", icon="✅")
     detector = ObjectDetection()
     detector(img_list, img_name)
