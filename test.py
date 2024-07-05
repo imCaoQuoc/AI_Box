@@ -31,7 +31,7 @@ class ObjectDetection:
         return res[0].plot(), conf, class_id
 
     def __call__(self, source, source_name):
-        start = st.sidebar.button("Detect uploaded images")
+        start = st.sidebar.button("画像から箱判定開始する")
         if start:
             columns = st.columns(2)
             dataframe = {'image_name': [], 'box_name': [], "confidence": [], "description": []}
@@ -84,11 +84,11 @@ st.set_page_config(
     page_icon="🤖", 
     initial_sidebar_state="expanded"
 )
-st.title(":green[BOX DETECTION WITH AI 🤖]")
+st.title(":green[箱をAIで判定する 🤖]")
 st.write("---")
 img_list = []
 img_name = []
-options = st.sidebar.selectbox("Choose which data would be use", ("Sample data", "Custom data"))
+options = st.sidebar.selectbox("Choose which data would be use", ("サンプルデータを使う", "箱の画像（複）を指定する"))
 
 if options == "Sample data":
     img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
