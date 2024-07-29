@@ -1,10 +1,26 @@
+"""
+Script description: This script imports tests the Streamlit-Authenticator package. 
+
+Libraries imported:
+- yaml: Module implementing the data serialization used for human readable documents.
+- streamlit: Framework used to build pure Python web applications.
+"""
+
+import yaml
+import streamlit as st
+from yaml.loader import SafeLoader
+import streamlit_authenticator as stauth
 from ultralytics import YOLO
 import pandas as pd
-import numpy as np
-import streamlit as st
-import streamlit_authenticator as stauth
 from PIL import Image
 import cv2
+from streamlit_authenticator.utilities import (CredentialsError,
+                                               ForgotError,
+                                               Hasher,
+                                               LoginError,
+                                               RegisterError,
+                                               ResetError,
+                                               UpdateError)
 
 model_path = 'bestv9c50.pt'
 
@@ -85,22 +101,53 @@ st.set_page_config(
     page_icon="🤖", 
     initial_sidebar_state="collapsed"
 )
-st.title(":green[箱をAIで判定する 🤖]")
-st.write("---")
-img_list = []
-img_name = []
-options = st.sidebar.selectbox("使う画像の設定", ("サンプルデータを使う", "箱の画像（複）を指定する"))
 
-if options == "サンプルデータを使う":
-    img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
-    img_name = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
-elif options == "箱の画像（複）を指定する":
-    img_list = st.sidebar.file_uploader("選択した画像", type=["png", "jpg"], accept_multiple_files=True)
-    img_name = [file.name for file in img_list]
+# Loading config file
+with open('config.yaml', 'r', encoding='utf-8') as file:
+    config = yaml.load(file, Loader=SafeLoader)
 
-if len(img_list) == 0:
-    st.sidebar.warning("判定する画像を1枚以上指定してください", icon="⚠️")
-else:
-    st.sidebar.success("判定開始可能になりました", icon="✅")
-    detector = ObjectDetection()
-    detector(img_list, img_name)
+# Hashing all plain text passwords once
+# a = Hasher.hash_passwords(config['credentials'])
+# st.write(a)
+
+# Creating the authenticator object
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config['pre-authorized']
+)
+
+# Creating a login widget
+try:
+    authenticator.login()
+except LoginError as e:
+    st.error(e)
+
+if st.session_state["authentication_status"]:
+    authenticator.logout()
+    st.write(f'Welcome *{st.session_state["name"]}*')
+    st.title(":green[箱をAIで判定する 🤖]")
+    st.write("---")
+    img_list = []
+    img_name = []
+    options = st.sidebar.selectbox("使う画像の設定", ("サンプルデータを使う", "箱の画像（複）を指定する"))
+
+    if options == "サンプルデータを使う":
+        img_list = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
+        img_name = ["test1.jpg", "test2.jpg", "test3.jpg", "test4.jpg"]
+    elif options == "箱の画像（複）を指定する":
+        img_list = st.sidebar.file_uploader("選択した画像", type=["png", "jpg"], accept_multiple_files=True)
+        img_name = [file.name for file in img_list]
+
+    if len(img_list) == 0:
+        st.sidebar.warning("判定する画像を1枚以上指定してください", icon="⚠️")
+    else:
+        st.sidebar.success("判定開始可能になりました", icon="✅")
+        detector = ObjectDetection()
+        detector(img_list, img_name)
+elif st.session_state["authentication_status"] is False:
+    st.error('Username/password is incorrect')
+elif st.session_state["authentication_status"] is None:
+    st.warning('Please enter your username and password')
