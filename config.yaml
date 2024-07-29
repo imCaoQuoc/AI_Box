@@ -8,13 +8,13 @@ credentials:
       email: caoquoc110602@gmail.com
       failed_login_attempts: 0
       logged_in: false
-      name: Cao Quoc
+      name: viet vang
       password: $2b$12$vBZEb5mX274cnNl4YjcVo.urCzIVYeG80c.Gy1e50Wek8n0E1Lm52
     user:
       email: caoquocworkandstudy@gmail.com
       failed_login_attempts: 0
       logged_in: false
-      name: Cao Quoc
+      name: KGK
       password: $2b$12$mP7p.btCxsuwhBklT4goA./JOfz2aBhlElrE.uvDz1MmzYOZ/glbu
 pre-authorized:
   emails:
