@@ -126,7 +126,7 @@ except LoginError as e:
     st.error(e)
 
 if st.session_state["authentication_status"]:
-    st.write(f'Welcome *{st.session_state["name"]}*')
+    st.write(f'Welcome {st.session_state["name"]}')
     st.title(":green[箱をAIで判定する 🤖]")
     st.write("---")
     img_list = []
