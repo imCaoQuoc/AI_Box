@@ -126,7 +126,6 @@ except LoginError as e:
     st.error(e)
 
 if st.session_state["authentication_status"]:
-    authenticator.logout()
     st.write(f'Welcome *{st.session_state["name"]}*')
     st.title(":green[箱をAIで判定する 🤖]")
     st.write("---")
@@ -146,7 +145,8 @@ if st.session_state["authentication_status"]:
     else:
         st.sidebar.success("判定開始可能になりました", icon="✅")
         detector = ObjectDetection()
-        detector(img_list, img_name)
+        detector(img_list, img_name)      
+    authenticator.logout()
 elif st.session_state["authentication_status"] is False:
     st.error('Username/password is incorrect')
 elif st.session_state["authentication_status"] is None:
