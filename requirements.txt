@@ -1,4 +1,5 @@
 streamlit
+streamlit-authenticator
 ultralytics
 opencv-contrib-python-headless
 pyopengl
